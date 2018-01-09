@@ -1,0 +1,26 @@
+service:
+  name: bizform-generator
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: us-east-1
+  profile: bizform-generator-profile
+  timeout: 10
+
+functions:
+  generateBizForm:
+    handler: index.generateBizForm
+    events:
+      - http:
+          method: post
+          path: bizform
+          cors: true
+
+custom:
+  webpackIncludeModules: true # enable auto-packing of external modules
