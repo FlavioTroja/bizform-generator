@@ -6,7 +6,7 @@
     "setup": "sls config credentials --provider aws",
     "deploy": "sls deploy -v",
     "local": "sls invoke local -f",
-    "watch_pug": "live-server --no-browser & sls offline --port 3090 & watch \"./dev-compile.js $npm_config_pug_template\" templates",
+    "watch_pug": "live-server --no-browser --watch=./index.html & sls offline --port 3090 & watch \"./dev-compile.js $npm_config_pug_template\" templates",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
