@@ -132,6 +132,3 @@ yarn run deploy -s production
 See [docs](https://serverless.com/framework/docs/) of serverless framework to update `serverless.yml`.
 
 PR welcome!
-
-# Appendix
-This application is created based on `aws-nodejs-ecma-script` of [Serverless framework](https://github.com/serverless/serverless) ver1.24.1.
