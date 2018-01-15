@@ -1,0 +1,293 @@
+html
+  head
+    meta(charset="UTF-8")
+    title= 'Invoice'
+    style(type= 'text/css').
+
+      .wrapper{
+        -webkit-print-color-adjust: exact;
+      }
+
+      .title{
+        color:#6E6E6E;
+        font-weight:lighter;
+        margin-bottom:0px;
+      }
+
+      .h1{
+        color:#848484;
+        margin:0px;
+      }
+
+      .delivery-info{
+        float:right;
+        color:#000000;
+        font-size:13px;
+        margin:0px;
+        padding-right:7%;
+      }
+
+      .header-blue-border {
+        border-color:#0404B4;
+        border-width:5px;
+        margin:0px;
+      }
+
+      .footer-blue-border{
+        border-color:#0404B4;
+        border-width:5px;
+        margin-top:30px;
+      }
+
+      .info{
+        display: flex;
+        margin:0px;
+      }
+
+      .for-receiver{
+        display: flex;
+        flex-flow: column nowrap;
+        width:60%;
+      }
+
+      .ship-to-info{
+        width:40%;
+      }
+
+      p.total-price{
+        background-color:#E6E6E6;
+        padding:16px 16px;
+        margin-right:30%;
+        line-height: 32px;
+
+      }
+
+      span.price{
+        font-size:20px;
+        float:right;
+        padding-right:7%;
+      }
+
+      .postal-code{
+        font-size:13px;
+      }
+
+      .address{
+        font-size:13px;
+      }
+
+      .mail{
+        font-size:13px;
+      }
+
+      .tel{
+        font-size:13px;
+      }
+
+      .ship-from-info{
+        margin-right:50px;
+      }
+
+      .list{
+        width:100%;
+        margin:0px;
+      }
+
+      .list-of-contents{
+        width:100%;
+        font-size:13px;
+      }
+
+      .label{
+        color:#0404B4;
+        font-size:13px;
+        text-align:left;
+      }
+
+      .label-of-list{
+        color:#0404B4;
+        text-align:left;
+      }
+
+      .odd{
+        background-color:#E6E6E6;
+      }
+
+      .content{
+        width:50%;
+        padding-left:16px;
+        height:22px;
+
+      }
+
+      .quantity{
+        width:10%;
+        text-align:center;
+        height:22px;
+      }
+
+      .unitprice{
+        width:20%;
+        text-align:right;
+        padding-right:16px;
+        height:22px;
+      }
+
+      .adding-up{
+        width:30%;
+        text-align:right;
+        padding-right:16px;
+        height:22px;
+      }
+
+      .footer{
+        display:flex;
+      }
+
+      .remarks-section{
+        width:50%;
+      }
+
+      .remarks{
+        margin:0px;
+      }
+
+
+      .textarea-of-remarks{
+        height:100px;
+        border: solid 1px #000000;
+      }
+
+      .computed-price{
+        width:50%;
+        margin-left:5%;
+      }
+
+      .table-of-total{
+        margin-left:12%;
+      }
+
+      .label{
+        text-align:right;
+        color:#0404B4;
+        font-weight:lighter;
+        font-size:13px;
+      }
+
+      .subtotal-price{
+        background-color:#E6E6E6;
+        width:200px;
+        height:27px;
+        font-size:13px;
+        text-align:right;
+        padding-right:16px;
+      }
+
+      .tax-price{
+        background-color:#E6E6E6;
+        width:200px;
+        height:27px;
+        font-size:13px;
+        text-align:right;
+        padding-right:16px;
+      }
+
+      .tax-included-price{
+        background-color:#E6E6E6;
+        width:200px;
+        height:27px;
+        font-size:13px;
+        text-align:right;
+        padding-right:16px;
+      }
+
+  body
+    div.wrapper
+      div.header
+        h1.title Invoice
+
+        hr.header-blue-border
+
+      div.info
+        div.for-receiver
+          div.ship-to-info
+            p.ship-to= clientName
+
+          div.total-section
+
+          - let subTotal = 0
+
+          - for (let i = 0; i < items.length; i++){
+            - subTotal += items[i].price * items[i].amount
+          -}
+
+          - const tax = subTotal * 0.08
+          - const taxInclued = subTotal + tax
+
+            p.total-price Total
+             span.price= taxInclued.toLocaleString()
+
+        div.ship-from-info
+          div.ship-from My company name
+          div.postal-code 1234-5678
+          div.address My company address
+          div.tel TEL:000-000-000
+          div.mail info@example.com
+
+      div.list
+        table.list-of-contents
+
+          tr.label-of-list
+            th.label-of-list Name
+            th.label-of-list Quantity
+            th.label-of-list Unit price
+            th.label-of-list Subtotal
+
+          - let maxRowNum = 20
+          - let currentRowNum = 0
+          - for (i = 0; i < items.length; i++){
+            - currentRowNum = i
+            - if(i % 2 === 0 || i === 0){
+              - rowClass = 'odd'
+            - } else if(i % 2 === 1){
+              -rowClass = 'even'
+            - }
+              tr(class= rowClass)
+                td.content #{items[i].name}
+                td.quantity #{items[i].amount}
+                - const unitPrice = items[i].price
+                td.unitprice= Number(unitPrice).toLocaleString()
+                - const subTotalPerRow = (items[i].price > 0 && items[i].amount > 0) ? items[i].price * items[i].amount : ''
+                td.adding-up= Number(subTotalPerRow).toLocaleString()
+          - }
+          - for (let j = currentRowNum + 1; j < maxRowNum; j++) {
+            - if(j % 2 === 0 || j === 0){
+              - rowClass = 'odd'
+            - } else if(j % 2 === 1){
+              - rowClass = 'even'
+            - }
+            tr(class= rowClass)
+              td.content
+              td.quantity
+              td.unitprice
+              td.adding-up
+          - }
+
+      p.remarks Note
+      div.footer
+        div.remarks-section
+          div.textarea-of-remarks
+            p.text-of-remarks= note
+        div.computed-price
+          table.table-of-total
+            tr.subtotal-column
+              th.label Charges
+              td.subtotal-price= Number(subTotal).toLocaleString()
+            tr.tax-column
+              th.label VAT
+              td.tax-price= Number(tax).toLocaleString()
+            tr.total-column
+              th.label Total
+              td.tax-included-price= Number(taxInclued).toLocaleString()
+
+      hr.footer-blue-border
