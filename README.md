@@ -5,6 +5,11 @@ This application is supposed to be deployed on AWS as [Serverless framework](htt
 
 # Use case
 For my case, I am calling this API with [Zoho Creator](https://www.zoho.com/creator/) in order to speed up development of templates for Zoho Creator.
+Sample codes in Zoho creator is [here](https://forums.zoho.com/topic/how-to-build-business-form-and-other-documents-in-your-own-format-quickly).
+
+Sample of an invoice which will be created with `templates/example/template.pug`.
+![Sample invoice](https://user-images.githubusercontent.com/385109/34935158-415402f0-fa20-11e7-895d-511f50aad108.png)
+
 
 # Getting started
 Let's say you are trying to develop `hello-world` template.
